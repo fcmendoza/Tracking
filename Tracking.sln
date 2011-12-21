@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{44E39A35-BC86-44AA-ABE5-1286EF2D778F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44E39A35-BC86-44AA-ABE5-1286EF2D778F}.Debug|x86.ActiveCfg = Debug|x86
+		{44E39A35-BC86-44AA-ABE5-1286EF2D778F}.Debug|x86.Build.0 = Debug|x86
+		{44E39A35-BC86-44AA-ABE5-1286EF2D778F}.Release|x86.ActiveCfg = Release|x86
+		{44E39A35-BC86-44AA-ABE5-1286EF2D778F}.Release|x86.Build.0 = Release|x86
+		{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}.Debug|x86.ActiveCfg = Debug|x86
+		{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}.Debug|x86.Build.0 = Debug|x86
+		{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}.Release|x86.ActiveCfg = Release|x86
+		{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
