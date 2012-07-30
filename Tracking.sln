@@ -5,6 +5,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvExporter", "CsvExporter\CsvExporter.csproj", "{AC3F5697-0D70-4CD7-BB9E-625852E725D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{08E5D2F8-8818-4D41-9503-1F0F9947FA44}"
+	ProjectSection(SolutionItems) = preProject
+		CreateDatabase.sql = CreateDatabase.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,6 +26,10 @@ Global
 		{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}.Debug|x86.Build.0 = Debug|x86
 		{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}.Release|x86.ActiveCfg = Release|x86
 		{5B81A571-31BC-4A03-AA4D-CB80EED2AF1F}.Release|x86.Build.0 = Release|x86
+		{AC3F5697-0D70-4CD7-BB9E-625852E725D8}.Debug|x86.ActiveCfg = Debug|x86
+		{AC3F5697-0D70-4CD7-BB9E-625852E725D8}.Debug|x86.Build.0 = Debug|x86
+		{AC3F5697-0D70-4CD7-BB9E-625852E725D8}.Release|x86.ActiveCfg = Release|x86
+		{AC3F5697-0D70-4CD7-BB9E-625852E725D8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
