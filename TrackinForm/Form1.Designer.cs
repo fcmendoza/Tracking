@@ -25,7 +25,6 @@
         private void InitializeComponent() {
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.txtAmount = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTags = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -33,6 +32,10 @@
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.nudAmount = new System.Windows.Forms.NumericUpDown();
+            this.txtLog = new System.Windows.Forms.TextBox();
+            this.lblLog = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -51,14 +54,7 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(368, 20);
             this.txtDescription.TabIndex = 1;
-            // 
-            // txtAmount
-            // 
-            this.txtAmount.Location = new System.Drawing.Point(88, 53);
-            this.txtAmount.MaxLength = 200;
-            this.txtAmount.Name = "txtAmount";
-            this.txtAmount.Size = new System.Drawing.Size(166, 20);
-            this.txtAmount.TabIndex = 3;
+            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // label2
             // 
@@ -71,16 +67,17 @@
             // 
             // txtTags
             // 
-            this.txtTags.Location = new System.Drawing.Point(88, 186);
+            this.txtTags.Location = new System.Drawing.Point(88, 129);
             this.txtTags.MaxLength = 200;
             this.txtTags.Name = "txtTags";
-            this.txtTags.Size = new System.Drawing.Size(368, 20);
+            this.txtTags.Size = new System.Drawing.Size(200, 20);
             this.txtTags.TabIndex = 7;
+            this.txtTags.TextChanged += new System.EventHandler(this.txtTags_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 189);
+            this.label3.Location = new System.Drawing.Point(22, 132);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 6;
@@ -104,7 +101,8 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(88, 294);
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAdd.Location = new System.Drawing.Point(88, 405);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 8;
@@ -114,31 +112,75 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(179, 294);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.Location = new System.Drawing.Point(179, 405);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // nudAmount
+            // 
+            this.nudAmount.DecimalPlaces = 2;
+            this.nudAmount.Location = new System.Drawing.Point(88, 54);
+            this.nudAmount.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudAmount.Minimum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            -2147483648});
+            this.nudAmount.Name = "nudAmount";
+            this.nudAmount.Size = new System.Drawing.Size(120, 20);
+            this.nudAmount.TabIndex = 3;
+            this.nudAmount.ThousandsSeparator = true;
+            this.nudAmount.ValueChanged += new System.EventHandler(this.nudAmount_ValueChanged);
+            // 
+            // txtLog
+            // 
+            this.txtLog.Location = new System.Drawing.Point(25, 207);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLog.Size = new System.Drawing.Size(431, 172);
+            this.txtLog.TabIndex = 10;
+            // 
+            // lblLog
+            // 
+            this.lblLog.AutoSize = true;
+            this.lblLog.Location = new System.Drawing.Point(22, 191);
+            this.lblLog.Name = "lblLog";
+            this.lblLog.Size = new System.Drawing.Size(80, 13);
+            this.lblLog.TabIndex = 11;
+            this.lblLog.Text = "Transaction log";
+            // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 329);
+            this.ClientSize = new System.Drawing.Size(560, 440);
+            this.Controls.Add(this.lblLog);
+            this.Controls.Add(this.txtLog);
+            this.Controls.Add(this.nudAmount);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtTags);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtAmount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label1);
             this.Name = "TransactionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Transaction";
+            this.Load += new System.EventHandler(this.TransactionForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,7 +190,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.TextBox txtAmount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTags;
         private System.Windows.Forms.Label label3;
@@ -156,6 +197,9 @@
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.NumericUpDown nudAmount;
+        private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.Label lblLog;
     }
 }
 

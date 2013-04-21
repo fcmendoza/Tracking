@@ -11,18 +11,20 @@ using System.Xml;
 namespace TrackinForm {
 
     public interface ITransactionRepository {
-        void InsertTransaction(Transaction transaction);
+        bool InsertTransaction(Transaction transaction, out string errorMessage);
     }
 
     public class TransactionRepository : ITransactionRepository {
-        public void InsertTransaction(Transaction transaction) {
+        public bool InsertTransaction(Transaction transaction, out string errorMessage) {
             string url = String.Format("http://www.moneytrackin.com/api/rest/insertTransaction?project=&description={0}&amount={1}&date={2:yyyy-MM-dd}&tags={3}",
                 transaction.Description, transaction.Amount, transaction.Date, string.Join(" ", transaction.Tags));
 
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "GET";
             request.Headers.Add("Authorization", String.Format("Basic {0}", ConfigurationManager.AppSettings["ApiAuthorizationKey"]));
-
+            
+            bool success = false;
+            errorMessage = null;
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse) {
                 string xmlResponse;
 
@@ -41,9 +43,11 @@ namespace TrackinForm {
                                 ErrorMessage = (string)c.Value
                             };
 
-                bool success = code.ToLower() == "done";
-                string errorMessage = query.FirstOrDefault() != null ? query.FirstOrDefault().ErrorMessage : "Undefined error.";
+                success = code.ToLower() == "done";
+                errorMessage = query.FirstOrDefault() != null ? query.FirstOrDefault().ErrorMessage : "Undefined error.";
             }
+
+            return success;
         }
     }
 

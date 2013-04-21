@@ -15,15 +15,53 @@ namespace TrackinForm {
         }
 
         private void btnAdd_Click(object sender, EventArgs e) {
-            var transaction = new Transaction();
-            transaction.Description = txtDescription.Text;
-            transaction.Amount = decimal.Parse(txtAmount.Text);
-            transaction.Date = dtpDate.Value;
-            transaction.Tags = txtTags.Text.Split(' ');
+            LogInfo("Adding transaction...");
 
-            _repo.InsertTransaction(transaction);
+            string errorMessage = null;
+
+            var transaction = new Transaction {
+                Description = txtDescription.Text.Trim(),
+                Amount = nudAmount.Value,
+                Date = dtpDate.Value,
+                Tags = txtTags.Text.Trim().Split(' ')
+            };
+
+            try {
+                bool success = _repo.InsertTransaction(transaction, out errorMessage);
+                LogInfo(success ? "Transaction successfully added" : "Transaction failed. Error message: " + errorMessage);
+            } 
+            catch (Exception ex) {
+                LogInfo("An unexpected error ocurred. Exception Message: " + ex.Message);
+            }
+            
         }
 
         ITransactionRepository _repo;
+
+        private void TransactionForm_Load(object sender, EventArgs e) {
+            btnAdd.Enabled = false;
+        }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e) {
+            btnAdd.Enabled = IsEnabledAddButton();
+        }
+
+        private void nudAmount_ValueChanged(object sender, EventArgs e) {
+            btnAdd.Enabled = IsEnabledAddButton();
+        }
+
+        private void txtTags_TextChanged(object sender, EventArgs e) {
+            btnAdd.Enabled = IsEnabledAddButton();
+        }
+
+        private bool IsEnabledAddButton() {
+            return !String.IsNullOrWhiteSpace(txtDescription.Text) && nudAmount.Value != 0 && !String.IsNullOrWhiteSpace(txtTags.Text);
+        }
+
+        private void LogInfo(string message) {
+            txtLog.AppendText(txtLog.Text.Length > 0 ? "\n" : string.Empty);
+            txtLog.AppendText(String.Format("{0:yyyy-MM-dd hh:mm:ss}: {1}", DateTime.Now, message));
+        }
+
     }
 }
