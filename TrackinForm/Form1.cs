@@ -23,39 +23,47 @@ namespace TrackinForm {
                 Description = txtDescription.Text.Trim(),
                 Amount = nudAmount.Value,
                 Date = dtpDate.Value,
-                Tags = txtTags.Text.Trim().Split(' ')
+                Tags = cboTags.Text.Trim().Split(' ')
             };
 
             try {
                 bool success = _repo.InsertTransaction(transaction, out errorMessage);
-                LogInfo(success ? "Transaction successfully added" : "Transaction failed. Error message: " + errorMessage);
+                string parameters = String.Format("'{0}', {1:N}, {2:yyyy-MM-dd}, '{3}'", transaction.Description, transaction.Amount, transaction.Date, String.Join(" ", transaction.Tags));
+                LogInfo(success 
+                    ? String.Format("Transaction successfully added ({0}).", parameters) 
+                    : String.Format("Transaction failed ({0}). Error message: {1}", parameters, errorMessage));
+
+                SetControls();
             } 
             catch (Exception ex) {
                 LogInfo("An unexpected error ocurred. Exception Message: " + ex.Message);
             }
-            
         }
 
-        ITransactionRepository _repo;
+        private void SetControls() {
+            txtDescription.Clear();
+            nudAmount.Value = 0;
+            txtDescription.Focus();
+        }
 
         private void TransactionForm_Load(object sender, EventArgs e) {
             btnAdd.Enabled = false;
         }
-
         private void txtDescription_TextChanged(object sender, EventArgs e) {
             btnAdd.Enabled = IsEnabledAddButton();
         }
-
         private void nudAmount_ValueChanged(object sender, EventArgs e) {
             btnAdd.Enabled = IsEnabledAddButton();
         }
-
-        private void txtTags_TextChanged(object sender, EventArgs e) {
+        private void cboTags_SelectedIndexChanged(object sender, EventArgs e) {
+            btnAdd.Enabled = IsEnabledAddButton();
+        }
+        private void cboTags_TextChanged(object sender, EventArgs e) {
             btnAdd.Enabled = IsEnabledAddButton();
         }
 
         private bool IsEnabledAddButton() {
-            return !String.IsNullOrWhiteSpace(txtDescription.Text) && nudAmount.Value != 0 && !String.IsNullOrWhiteSpace(txtTags.Text);
+            return !String.IsNullOrWhiteSpace(txtDescription.Text) && nudAmount.Value != 0 && !String.IsNullOrWhiteSpace(cboTags.Text);
         }
 
         private void LogInfo(string message) {
@@ -63,5 +71,33 @@ namespace TrackinForm {
             txtLog.AppendText(String.Format("{0:yyyy-MM-dd hh:mm:ss}: {1}", DateTime.Now, message));
         }
 
+
+        private void txtDescription_Enter(object sender, EventArgs e) {
+            txtDescription.SelectAll();
+        }
+
+        private void nudAmount_Enter(object sender, EventArgs e) {
+            nudAmount.Select(0, nudAmount.Value.ToString().Length + 3);
+        }
+
+        private void dtpDate_Enter(object sender, EventArgs e) {
+            SendKeys.Send("{RIGHT 1}");
+        }
+
+
+        private void label5_Click(object sender, EventArgs e) {
+            cboTags.Text = ((Label)sender).Text;
+        }
+        private void label6_Click(object sender, EventArgs e) {
+            cboTags.Text = ((Label)sender).Text;
+        }
+        private void label7_Click(object sender, EventArgs e) {
+            cboTags.Text = ((Label)sender).Text;
+        }
+        private void label8_Click(object sender, EventArgs e) {
+            cboTags.Text = ((Label)sender).Text;
+        }
+
+        ITransactionRepository _repo;
     }
 }

@@ -26,7 +26,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtTags = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
@@ -35,6 +34,11 @@
             this.nudAmount = new System.Windows.Forms.NumericUpDown();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.lblLog = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cboTags = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,6 +59,7 @@
             this.txtDescription.Size = new System.Drawing.Size(368, 20);
             this.txtDescription.TabIndex = 1;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
+            this.txtDescription.Enter += new System.EventHandler(this.txtDescription_Enter);
             // 
             // label2
             // 
@@ -64,15 +69,6 @@
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Amount";
-            // 
-            // txtTags
-            // 
-            this.txtTags.Location = new System.Drawing.Point(88, 129);
-            this.txtTags.MaxLength = 200;
-            this.txtTags.Name = "txtTags";
-            this.txtTags.Size = new System.Drawing.Size(200, 20);
-            this.txtTags.TabIndex = 7;
-            this.txtTags.TextChanged += new System.EventHandler(this.txtTags_TextChanged);
             // 
             // label3
             // 
@@ -98,6 +94,7 @@
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(200, 20);
             this.dtpDate.TabIndex = 5;
+            this.dtpDate.Enter += new System.EventHandler(this.dtpDate_Enter);
             // 
             // btnAdd
             // 
@@ -139,16 +136,21 @@
             this.nudAmount.TabIndex = 3;
             this.nudAmount.ThousandsSeparator = true;
             this.nudAmount.ValueChanged += new System.EventHandler(this.nudAmount_ValueChanged);
+            this.nudAmount.Enter += new System.EventHandler(this.nudAmount_Enter);
             // 
             // txtLog
             // 
+            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLog.Location = new System.Drawing.Point(25, 207);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(431, 172);
+            this.txtLog.Size = new System.Drawing.Size(524, 172);
             this.txtLog.TabIndex = 10;
+            this.txtLog.TabStop = false;
             // 
             // lblLog
             // 
@@ -159,11 +161,83 @@
             this.lblLog.TabIndex = 11;
             this.lblLog.Text = "Transaction log";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(303, 132);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(28, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "food";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(337, 132);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "transportation";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(414, 132);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(71, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "personal-care";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(303, 157);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "services";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // cboTags
+            // 
+            this.cboTags.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboTags.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboTags.FormattingEnabled = true;
+            this.cboTags.Items.AddRange(new object[] {
+            "food",
+            "transportation",
+            "personal-care",
+            "services",
+            "healthcare",
+            "leisure"});
+            this.cboTags.Location = new System.Drawing.Point(88, 129);
+            this.cboTags.Name = "cboTags";
+            this.cboTags.Size = new System.Drawing.Size(200, 21);
+            this.cboTags.TabIndex = 7;
+            this.cboTags.SelectedIndexChanged += new System.EventHandler(this.cboTags_SelectedIndexChanged);
+            this.cboTags.TextChanged += new System.EventHandler(this.cboTags_TextChanged);
+            // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 440);
+            this.ClientSize = new System.Drawing.Size(624, 440);
+            this.Controls.Add(this.cboTags);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblLog);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.nudAmount);
@@ -171,7 +245,6 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtTags);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescription);
@@ -191,7 +264,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtTags;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtpDate;
@@ -200,6 +272,11 @@
         private System.Windows.Forms.NumericUpDown nudAmount;
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.Label lblLog;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cboTags;
     }
 }
 
