@@ -15,12 +15,56 @@ namespace Testing
         static void Main(string[] args)
         {
             try {
-                Run();
+                Insert();
+                //Run();
             }
             catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
             }
             Console.ReadLine();
+        }
+
+        private static void Insert() {
+            string url = "http://www.moneytrackin.com/api/rest/insertTransaction?project=&description=lorem+ipsum&amount=-123&date=2013-04-20&tags=food";
+
+            bool success = false;
+            string errorMessage = String.Empty;
+
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            request.Headers.Add("Authorization", "Basic yourkeygoeshere");
+
+            try {
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse) {
+                    string xmlResponse;
+
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
+                        xmlResponse = reader.ReadToEnd();
+                    }
+
+                    var doc = new XmlDocument();
+                    doc.LoadXml(xmlResponse);
+
+                    var xdoc = doc.ToXDocument();
+                    var code = (string)xdoc.Root.Attribute("code");
+
+                    var query = from c in xdoc.Descendants("error")
+                                select new  {
+                                    ErrorMessage = (string)c.Value
+                                };
+                                
+                    success = code.ToLower() == "done";
+                    errorMessage = query.FirstOrDefault() != null ? query.FirstOrDefault().ErrorMessage : "Undefined error.";
+                }
+
+                //_logger.InfoFormat("Sent email for request commitment ID {0}", commitment.Id);
+            }
+            catch (WebException ex) {
+                //_logger.Error(String.Format("Email for request commitment ID {0} could not be sent.", commitment.Id), ex);
+                success = false;
+            }
+
+            Console.WriteLine("Success: {0}. Error Message: {1}", success, errorMessage);
         }
 
         private static void Run() {
