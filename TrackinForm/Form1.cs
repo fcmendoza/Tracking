@@ -98,6 +98,10 @@ namespace TrackinForm {
             cboTags.Text = ((Label)sender).Text;
         }
 
+        private void btnViewTransactions_Click(object sender, EventArgs e) {
+            var transactions = new TransactionsForm(_repo);
+            transactions.ShowDialog();
+        }
         ITransactionRepository _repo;
     }
 }

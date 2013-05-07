@@ -39,6 +39,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.cboTags = new System.Windows.Forms.ComboBox();
+            this.btnViewTransactions = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -228,11 +229,23 @@
             this.cboTags.SelectedIndexChanged += new System.EventHandler(this.cboTags_SelectedIndexChanged);
             this.cboTags.TextChanged += new System.EventHandler(this.cboTags_TextChanged);
             // 
+            // btnViewTransactions
+            // 
+            this.btnViewTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnViewTransactions.Location = new System.Drawing.Point(417, 405);
+            this.btnViewTransactions.Name = "btnViewTransactions";
+            this.btnViewTransactions.Size = new System.Drawing.Size(132, 23);
+            this.btnViewTransactions.TabIndex = 20;
+            this.btnViewTransactions.Text = "View Transactions";
+            this.btnViewTransactions.UseVisualStyleBackColor = true;
+            this.btnViewTransactions.Click += new System.EventHandler(this.btnViewTransactions_Click);
+            // 
             // TransactionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 440);
+            this.Controls.Add(this.btnViewTransactions);
             this.Controls.Add(this.cboTags);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -277,6 +290,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cboTags;
+        private System.Windows.Forms.Button btnViewTransactions;
     }
 }
 

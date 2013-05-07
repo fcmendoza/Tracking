@@ -12,6 +12,7 @@ namespace TrackinForm {
 
     public interface ITransactionRepository {
         bool InsertTransaction(Transaction transaction, out string errorMessage);
+        IEnumerable<Transaction> GetTransactions(DateTime from, DateTime to);
     }
 
     public class TransactionRepository : ITransactionRepository {
@@ -48,6 +49,40 @@ namespace TrackinForm {
             }
 
             return success;
+        }
+
+        public IEnumerable<Transaction> GetTransactions(DateTime from, DateTime to) {
+            string url = String.Format("http://www.moneytrackin.com/api/rest/listTransactions?project=&startDate={0:yyyy-MM-dd}&endDate={1:yyyy-MM-dd}",
+                from, to);
+
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            request.Headers.Add("Authorization", String.Format("Basic {0}", ConfigurationManager.AppSettings["ApiAuthorizationKey"]));
+
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse) {
+                string xmlResponse;
+
+                using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
+                    xmlResponse = reader.ReadToEnd();
+                    xmlResponse = xmlResponse.Replace("result", "transactions");
+                }
+
+                var doc = new XmlDocument();
+                doc.LoadXml(xmlResponse);
+
+                var xdoc = doc.ToXDocument();
+
+                var query = from c in xdoc.Descendants("transaction")
+                            select new Transaction {
+                                ID = (long)c.Attribute("id"),
+                                Description = (string)c.Element("description"),
+                                Date = (DateTime)c.Element("date"),
+                                Amount = (decimal)c.Element("amount"),
+                                Tags = c.Descendants("tags").Select(x => x.Element("tag").Value).ToList()
+                            };
+
+                return query.ToList();
+            }
         }
     }
 
