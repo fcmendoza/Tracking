@@ -67,7 +67,7 @@ namespace TrackinForm {
         }
 
         private void LogInfo(string message) {
-            txtLog.AppendText(txtLog.Text.Length > 0 ? "\n" : string.Empty);
+            txtLog.AppendText(txtLog.Text.Length > 0 ? "\r\n\r" : string.Empty);
             txtLog.AppendText(String.Format("{0:yyyy-MM-dd hh:mm:ss}: {1}", DateTime.Now, message));
         }
 
