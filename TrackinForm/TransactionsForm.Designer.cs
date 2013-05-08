@@ -30,6 +30,7 @@
             this.Tags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblLog = new System.Windows.Forms.Label();
             this.txtLog = new System.Windows.Forms.TextBox();
+            this.cboDateRange = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -91,11 +92,27 @@
             this.txtLog.TabIndex = 12;
             this.txtLog.TabStop = false;
             // 
+            // cboDateRange
+            // 
+            this.cboDateRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboDateRange.FormattingEnabled = true;
+            this.cboDateRange.Items.AddRange(new object[] {
+            "This Month (default)",
+            "This Year",
+            "Last Two Years",
+            "All Transactions"});
+            this.cboDateRange.Location = new System.Drawing.Point(572, 22);
+            this.cboDateRange.Name = "cboDateRange";
+            this.cboDateRange.Size = new System.Drawing.Size(121, 21);
+            this.cboDateRange.TabIndex = 14;
+            this.cboDateRange.SelectedIndexChanged += new System.EventHandler(this.cboDateRange_SelectedIndexChanged);
+            // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 507);
+            this.ClientSize = new System.Drawing.Size(729, 507);
+            this.Controls.Add(this.cboDateRange);
             this.Controls.Add(this.lblLog);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.lstvTransactions);
@@ -118,5 +135,6 @@
         private System.Windows.Forms.ColumnHeader Tags;
         private System.Windows.Forms.Label lblLog;
         private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.ComboBox cboDateRange;
     }
 }
