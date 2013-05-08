@@ -18,6 +18,13 @@ namespace TrackinForm {
         }
 
         private void TransactionsForm_Load(object sender, EventArgs e) {
+            cboDateRange.Items.Clear();
+            cboDateRange.Items.AddRange(new object[] {
+            "Last Month",
+            "This Month (default)",
+            "This Year",
+            "Last Two Years",
+            "All Transactions"});
         }
 
         private void TransactionsForm_Shown(object sender, EventArgs e) {
@@ -27,11 +34,15 @@ namespace TrackinForm {
         private void cboDateRange_SelectedIndexChanged(object sender, EventArgs e) {
             var option = (DateRange)cboDateRange.SelectedIndex;
             var now = DateTime.Now;
+            var lastMonth = DateTime.Now.AddMonths(-1);
             var nextMonth = DateTime.Now.AddMonths(1);
 
             switch (option) {
+                case DateRange.LastMonth:
+                    FillTransactionsList(new DateTime(lastMonth.Year, lastMonth.Month, 01), new DateTime(now.Year, now.Month, 01));
+                    break;
                 case DateRange.ThisMonth:
-                    FillTransactionsList(new DateTime(now.Year, now.Month, 01), new DateTime(now.Year, now.AddMonths(1).Month, 01));
+                    FillTransactionsList(new DateTime(now.Year, now.Month, 01), new DateTime(nextMonth.Year, nextMonth.Month, 01));
                     break;
                 case DateRange.ThisYear:
                     FillTransactionsList(new DateTime(now.Year, 01, 01), new DateTime(now.Year, 12, 31));
@@ -71,10 +82,11 @@ namespace TrackinForm {
         }
 
         private enum DateRange {
-            ThisMonth = 0,
-            ThisYear = 1,
-            LastTwoYears = 2,
-            AllTransactions = 3
+            LastMonth = 0,
+            ThisMonth = 1,
+            ThisYear = 2,
+            LastTwoYears = 3,
+            AllTransactions = 4,
         }
 
         ITransactionRepository _repo;

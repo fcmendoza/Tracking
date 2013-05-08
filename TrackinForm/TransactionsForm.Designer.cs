@@ -96,11 +96,6 @@
             // 
             this.cboDateRange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDateRange.FormattingEnabled = true;
-            this.cboDateRange.Items.AddRange(new object[] {
-            "This Month (default)",
-            "This Year",
-            "Last Two Years",
-            "All Transactions"});
             this.cboDateRange.Location = new System.Drawing.Point(572, 22);
             this.cboDateRange.Name = "cboDateRange";
             this.cboDateRange.Size = new System.Drawing.Size(121, 21);
