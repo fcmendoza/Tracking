@@ -58,22 +58,46 @@ namespace TrackinForm {
             }
         }
 
+        private void txtSearch_TextChanged(object sender, EventArgs e) {
+            FilterTransactions();
+        }
+
         private void FillTransactionsList(DateTime from, DateTime to) {
             LogInfo(String.Format("Retrieving transactions from web server (from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}) ...", from, to));
 
-            var transactions = _repo.GetTransactions(from, to);
-            transactions = transactions.OrderBy(t => t.Date).ThenBy(t => t.ID);
+            _transactions = _repo.GetTransactions(from, to);
+            _transactions = _transactions.OrderBy(t => t.Date).ThenBy(t => t.ID);
 
+            FillTransactionsList(_transactions);
+
+            LogInfo(String.Format("{0} transactions were retrieved.", _transactions.Count()));
+
+            if (!String.IsNullOrWhiteSpace(txtSearch.Text)) {
+                FilterTransactions();
+            }
+        }
+
+        private void FilterTransactions() {
+            string term = txtSearch.Text;
+            LogInfo(String.Format("Searching for term '{0}' ...", term));
+
+            var transactions = _transactions != null
+                ? _transactions.Where(t => t.Description.ToLower().Contains(term.ToLower()))
+                : new List<Transaction>();
+
+            FillTransactionsList(transactions);
+
+            LogInfo(String.Format("{0} results were found for term '{1}'.", transactions.Count(), term));
+        }
+
+        private void FillTransactionsList(IEnumerable<Transaction> transactions) {
             lstvTransactions.Items.Clear();
-
             foreach (var tran in transactions) {
                 var item = lstvTransactions.Items.Add(tran.Description);
                 item.SubItems.Add(String.Format("{0:N}", tran.Amount));
                 item.SubItems.Add(String.Format("{0:yyyy-MM-dd}", tran.Date));
                 item.SubItems.Add(String.Join(" ", tran.Tags));
             }
-
-            LogInfo(String.Format("{0} transactions were retrieved.", transactions.Count()));
         }
 
         private void LogInfo(string message) {
@@ -89,6 +113,11 @@ namespace TrackinForm {
             AllTransactions = 4,
         }
 
+        // TODO: Create a way to cache transaction results based on the date range and search criteria (search term and where we're searching on (description, tags, all)).
+        // By doing this, we wouldn't have to call the webservice everytime we're searching for transactions. 
+        // Cache results for 30 seconds or so, and maybe include a 'Refresh' button which invalidates the cache (either completely or on a cache item basis) and forces 
+        // the application to call the webserver to retrieve transactions.
+        IEnumerable<Transaction> _transactions;
         ITransactionRepository _repo;
     }
 }

@@ -31,6 +31,8 @@
             this.lblLog = new System.Windows.Forms.Label();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.cboDateRange = new System.Windows.Forms.ComboBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -99,14 +101,33 @@
             this.cboDateRange.Location = new System.Drawing.Point(572, 22);
             this.cboDateRange.Name = "cboDateRange";
             this.cboDateRange.Size = new System.Drawing.Size(121, 21);
-            this.cboDateRange.TabIndex = 14;
+            this.cboDateRange.TabIndex = 1;
             this.cboDateRange.SelectedIndexChanged += new System.EventHandler(this.cboDateRange_SelectedIndexChanged);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(572, 82);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(121, 20);
+            this.txtSearch.TabIndex = 3;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(570, 66);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "&Search:";
             // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(729, 507);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.cboDateRange);
             this.Controls.Add(this.lblLog);
             this.Controls.Add(this.txtLog);
@@ -131,5 +152,7 @@
         private System.Windows.Forms.Label lblLog;
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.ComboBox cboDateRange;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label label1;
     }
 }
