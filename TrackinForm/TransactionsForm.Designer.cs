@@ -33,6 +33,8 @@
             this.cboDateRange = new System.Windows.Forms.ComboBox();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -85,12 +87,12 @@
             this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLog.BackColor = System.Drawing.SystemColors.Control;
             this.txtLog.Location = new System.Drawing.Point(22, 308);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
-            this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(527, 172);
+            this.txtLog.Size = new System.Drawing.Size(527, 212);
             this.txtLog.TabIndex = 12;
             this.txtLog.TabStop = false;
             // 
@@ -121,11 +123,31 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "&Search:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(347, 282);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Total Amount:";
+            // 
+            // txtTotalAmount
+            // 
+            this.txtTotalAmount.Location = new System.Drawing.Point(428, 279);
+            this.txtTotalAmount.Name = "txtTotalAmount";
+            this.txtTotalAmount.ReadOnly = true;
+            this.txtTotalAmount.Size = new System.Drawing.Size(121, 20);
+            this.txtTotalAmount.TabIndex = 15;
+            this.txtTotalAmount.TabStop = false;
+            // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(729, 507);
+            this.ClientSize = new System.Drawing.Size(729, 547);
+            this.Controls.Add(this.txtTotalAmount);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.cboDateRange);
@@ -154,5 +176,7 @@
         private System.Windows.Forms.ComboBox cboDateRange;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtTotalAmount;
     }
 }

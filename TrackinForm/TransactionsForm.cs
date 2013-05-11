@@ -75,6 +75,9 @@ namespace TrackinForm {
             if (!String.IsNullOrWhiteSpace(txtSearch.Text)) {
                 FilterTransactions();
             }
+            else {
+                CalculateTotalAmount(_transactions);
+            }
         }
 
         private void FilterTransactions() {
@@ -82,12 +85,14 @@ namespace TrackinForm {
             LogInfo(String.Format("Searching for term '{0}' ...", term));
 
             var transactions = _transactions != null
-                ? _transactions.Where(t => t.Description.ToLower().Contains(term.ToLower()))
+                ? _transactions.Where(t => t.Description.ToLower().Contains(term.ToLower()) || String.Join(",", t.Tags).Contains(term))
                 : new List<Transaction>();
 
             FillTransactionsList(transactions);
 
             LogInfo(String.Format("{0} results were found for term '{1}'.", transactions.Count(), term));
+
+            CalculateTotalAmount(transactions);
         }
 
         private void FillTransactionsList(IEnumerable<Transaction> transactions) {
@@ -98,6 +103,15 @@ namespace TrackinForm {
                 item.SubItems.Add(String.Format("{0:yyyy-MM-dd}", tran.Date));
                 item.SubItems.Add(String.Join(" ", tran.Tags));
             }
+        }
+
+        private void CalculateTotalAmount(IEnumerable<Transaction> transactions) {
+            decimal total = transactions != null && transactions.Any()
+                ? transactions.Sum(t => t.Amount)
+                : 0;
+
+            txtTotalAmount.Text = String.Format("{0:N}", total);
+            LogInfo(String.Format("Transaction's total amount ({1} transactions): {0:N}", total, transactions.Count()));
         }
 
         private void LogInfo(string message) {
@@ -112,6 +126,12 @@ namespace TrackinForm {
             LastTwoYears = 3,
             AllTransactions = 4,
         }
+
+        // TODO: The grid/listview itself should be the one of updating the Total Amount value (both in the label/textbox and in 
+        // the transactions log) when the grid is reloaded/filtered. This way we avoid having to think to much how 
+        // the diferent events that couse the grid/listview to reload are related and when and how should be the one 
+        // of updating the Total Amount. If we concentrate this in a grid/list view event then things get easier, and we can
+        // be confident that the amount value is correct.
 
         // TODO: Create a way to cache transaction results based on the date range and search criteria (search term and where we're searching on (description, tags, all)).
         // By doing this, we wouldn't have to call the webservice everytime we're searching for transactions. 
