@@ -62,6 +62,22 @@ namespace TrackinForm {
             FilterTransactions();
         }
 
+        private void rdoAll_CheckedChanged(object sender, EventArgs e) {
+            if ((sender as RadioButton).Checked) {
+                FilterTransactions();
+            }
+        }
+        private void rdoDescription_CheckedChanged(object sender, EventArgs e) {
+            if ((sender as RadioButton).Checked) {
+                FilterTransactions();
+            }
+        }
+        private void rdoTags_CheckedChanged(object sender, EventArgs e) {
+            if ((sender as RadioButton).Checked) {
+                FilterTransactions();
+            }
+        }
+
         private void FillTransactionsList(DateTime from, DateTime to) {
             LogInfo(String.Format("Retrieving transactions from web server (from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}) ...", from, to));
 
@@ -82,15 +98,28 @@ namespace TrackinForm {
 
         private void FilterTransactions() {
             string term = txtSearch.Text;
-            LogInfo(String.Format("Searching for term '{0}' ...", term));
+
+            string by = rdoDescription.Checked
+                ? " (Description only)"
+                : (rdoTags.Checked ? " (Tags only)" : String.Empty);
+
+            LogInfo(String.Format("Searching for term '{0}'{1}...", term, by));
 
             var transactions = _transactions != null
-                ? _transactions.Where(t => t.Description.ToLower().Contains(term.ToLower()) || String.Join(",", t.Tags).Contains(term))
+                ? _transactions.Where(t => t.Description.ToLower().Contains(term.ToLower()) || String.Join(",", t.Tags).ToLower().Contains(term.ToLower()))
                 : new List<Transaction>();
+
+            transactions = rdoDescription.Checked
+                ? transactions.Where(t => t.Description.ToLower().Contains(term.ToLower()))
+                : transactions;
+
+            transactions = rdoTags.Checked
+                ? transactions.Where(t => String.Join(",", t.Tags).ToLower().Contains(term.ToLower()))
+                : transactions;
 
             FillTransactionsList(transactions);
 
-            LogInfo(String.Format("{0} results were found for term '{1}'.", transactions.Count(), term));
+            LogInfo(String.Format("{0} results were found for term '{1}'{2}.", transactions.Count(), term, by));
 
             CalculateTotalAmount(transactions);
         }

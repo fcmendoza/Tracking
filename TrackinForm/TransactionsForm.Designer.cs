@@ -35,6 +35,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.rdoAll = new System.Windows.Forms.RadioButton();
+            this.rdoDescription = new System.Windows.Forms.RadioButton();
+            this.rdoTags = new System.Windows.Forms.RadioButton();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -48,7 +53,7 @@
             this.lstvTransactions.GridLines = true;
             this.lstvTransactions.Location = new System.Drawing.Point(25, 22);
             this.lstvTransactions.Name = "lstvTransactions";
-            this.lstvTransactions.Size = new System.Drawing.Size(524, 247);
+            this.lstvTransactions.Size = new System.Drawing.Size(534, 247);
             this.lstvTransactions.TabIndex = 0;
             this.lstvTransactions.UseCompatibleStateImageBehavior = false;
             this.lstvTransactions.View = System.Windows.Forms.View.Details;
@@ -92,7 +97,7 @@
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(527, 212);
+            this.txtLog.Size = new System.Drawing.Size(537, 227);
             this.txtLog.TabIndex = 12;
             this.txtLog.TabStop = false;
             // 
@@ -126,7 +131,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(347, 282);
+            this.label2.Location = new System.Drawing.Point(359, 282);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 14;
@@ -134,18 +139,68 @@
             // 
             // txtTotalAmount
             // 
-            this.txtTotalAmount.Location = new System.Drawing.Point(428, 279);
+            this.txtTotalAmount.Location = new System.Drawing.Point(438, 279);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
             this.txtTotalAmount.Size = new System.Drawing.Size(121, 20);
             this.txtTotalAmount.TabIndex = 15;
             this.txtTotalAmount.TabStop = false;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rdoTags);
+            this.panel1.Controls.Add(this.rdoDescription);
+            this.panel1.Controls.Add(this.rdoAll);
+            this.panel1.Location = new System.Drawing.Point(568, 108);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(145, 36);
+            this.panel1.TabIndex = 16;
+            // 
+            // rdoAll
+            // 
+            this.rdoAll.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoAll.AutoSize = true;
+            this.rdoAll.Location = new System.Drawing.Point(4, 6);
+            this.rdoAll.Name = "rdoAll";
+            this.rdoAll.Size = new System.Drawing.Size(28, 23);
+            this.rdoAll.TabIndex = 0;
+            this.rdoAll.TabStop = true;
+            this.rdoAll.Text = "All";
+            this.rdoAll.UseVisualStyleBackColor = true;
+            this.rdoAll.CheckedChanged += new System.EventHandler(this.rdoAll_CheckedChanged);
+            // 
+            // rdoDescription
+            // 
+            this.rdoDescription.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoDescription.AutoSize = true;
+            this.rdoDescription.Location = new System.Drawing.Point(31, 6);
+            this.rdoDescription.Name = "rdoDescription";
+            this.rdoDescription.Size = new System.Drawing.Size(70, 23);
+            this.rdoDescription.TabIndex = 1;
+            this.rdoDescription.TabStop = true;
+            this.rdoDescription.Text = "Description";
+            this.rdoDescription.UseVisualStyleBackColor = true;
+            this.rdoDescription.CheckedChanged += new System.EventHandler(this.rdoDescription_CheckedChanged);
+            // 
+            // rdoTags
+            // 
+            this.rdoTags.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoTags.AutoSize = true;
+            this.rdoTags.Location = new System.Drawing.Point(100, 6);
+            this.rdoTags.Name = "rdoTags";
+            this.rdoTags.Size = new System.Drawing.Size(41, 23);
+            this.rdoTags.TabIndex = 2;
+            this.rdoTags.TabStop = true;
+            this.rdoTags.Text = "Tags";
+            this.rdoTags.UseVisualStyleBackColor = true;
+            this.rdoTags.CheckedChanged += new System.EventHandler(this.rdoTags_CheckedChanged);
+            // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(729, 547);
+            this.ClientSize = new System.Drawing.Size(727, 562);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtTotalAmount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -159,6 +214,8 @@
             this.Text = "Transactions";
             this.Load += new System.EventHandler(this.TransactionsForm_Load);
             this.Shown += new System.EventHandler(this.TransactionsForm_Shown);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,5 +235,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTotalAmount;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton rdoTags;
+        private System.Windows.Forms.RadioButton rdoDescription;
+        private System.Windows.Forms.RadioButton rdoAll;
     }
 }
