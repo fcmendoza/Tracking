@@ -62,6 +62,7 @@
             this.lstvTransactions.UseCompatibleStateImageBehavior = false;
             this.lstvTransactions.View = System.Windows.Forms.View.Details;
             this.lstvTransactions.DoubleClick += new System.EventHandler(this.lstvTransactions_DoubleClick);
+            this.lstvTransactions.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lstvTransactions_KeyUp);
             // 
             // ID
             // 

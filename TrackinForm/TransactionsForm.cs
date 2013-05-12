@@ -84,7 +84,15 @@ namespace TrackinForm {
 
         private void lstvTransactions_DoubleClick(object sender, EventArgs e) {
             ListViewItem item = lstvTransactions.SelectedItems[0];
-
+            EditTransaction(item);
+        }
+        private void lstvTransactions_KeyUp(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                ListViewItem item = lstvTransactions.SelectedItems[0];
+                EditTransaction(item);
+            }
+        }
+        private void EditTransaction(ListViewItem item) {
             var transaction = new Transaction {
                 ID = long.Parse(item.SubItems[0].Text),
                 Description = item.SubItems[1].Text,
