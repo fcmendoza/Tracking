@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionsForm));
             this.lstvTransactions = new System.Windows.Forms.ListView();
             this.Description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Amount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -36,9 +37,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rdoAll = new System.Windows.Forms.RadioButton();
-            this.rdoDescription = new System.Windows.Forms.RadioButton();
             this.rdoTags = new System.Windows.Forms.RadioButton();
+            this.rdoDescription = new System.Windows.Forms.RadioButton();
+            this.rdoAll = new System.Windows.Forms.RadioButton();
+            this.btnClearLog = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -156,18 +158,18 @@
             this.panel1.Size = new System.Drawing.Size(145, 36);
             this.panel1.TabIndex = 16;
             // 
-            // rdoAll
+            // rdoTags
             // 
-            this.rdoAll.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rdoAll.AutoSize = true;
-            this.rdoAll.Location = new System.Drawing.Point(4, 6);
-            this.rdoAll.Name = "rdoAll";
-            this.rdoAll.Size = new System.Drawing.Size(28, 23);
-            this.rdoAll.TabIndex = 0;
-            this.rdoAll.TabStop = true;
-            this.rdoAll.Text = "All";
-            this.rdoAll.UseVisualStyleBackColor = true;
-            this.rdoAll.CheckedChanged += new System.EventHandler(this.rdoAll_CheckedChanged);
+            this.rdoTags.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoTags.AutoSize = true;
+            this.rdoTags.Location = new System.Drawing.Point(100, 6);
+            this.rdoTags.Name = "rdoTags";
+            this.rdoTags.Size = new System.Drawing.Size(41, 23);
+            this.rdoTags.TabIndex = 2;
+            this.rdoTags.TabStop = true;
+            this.rdoTags.Text = "Tags";
+            this.rdoTags.UseVisualStyleBackColor = true;
+            this.rdoTags.CheckedChanged += new System.EventHandler(this.rdoTags_CheckedChanged);
             // 
             // rdoDescription
             // 
@@ -182,24 +184,38 @@
             this.rdoDescription.UseVisualStyleBackColor = true;
             this.rdoDescription.CheckedChanged += new System.EventHandler(this.rdoDescription_CheckedChanged);
             // 
-            // rdoTags
+            // rdoAll
             // 
-            this.rdoTags.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rdoTags.AutoSize = true;
-            this.rdoTags.Location = new System.Drawing.Point(100, 6);
-            this.rdoTags.Name = "rdoTags";
-            this.rdoTags.Size = new System.Drawing.Size(41, 23);
-            this.rdoTags.TabIndex = 2;
-            this.rdoTags.TabStop = true;
-            this.rdoTags.Text = "Tags";
-            this.rdoTags.UseVisualStyleBackColor = true;
-            this.rdoTags.CheckedChanged += new System.EventHandler(this.rdoTags_CheckedChanged);
+            this.rdoAll.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoAll.AutoSize = true;
+            this.rdoAll.Location = new System.Drawing.Point(4, 6);
+            this.rdoAll.Name = "rdoAll";
+            this.rdoAll.Size = new System.Drawing.Size(28, 23);
+            this.rdoAll.TabIndex = 0;
+            this.rdoAll.TabStop = true;
+            this.rdoAll.Text = "All";
+            this.rdoAll.UseVisualStyleBackColor = true;
+            this.rdoAll.CheckedChanged += new System.EventHandler(this.rdoAll_CheckedChanged);
+            // 
+            // btnClearLog
+            // 
+            this.btnClearLog.Image = ((System.Drawing.Image)(resources.GetObject("btnClearLog.Image")));
+            this.btnClearLog.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnClearLog.Location = new System.Drawing.Point(103, 285);
+            this.btnClearLog.Name = "btnClearLog";
+            this.btnClearLog.Size = new System.Drawing.Size(25, 23);
+            this.btnClearLog.TabIndex = 17;
+            this.btnClearLog.TabStop = false;
+            this.btnClearLog.Text = "&C";
+            this.btnClearLog.UseVisualStyleBackColor = true;
+            this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
             // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 562);
+            this.Controls.Add(this.btnClearLog);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtTotalAmount);
             this.Controls.Add(this.label2);
@@ -239,5 +255,6 @@
         private System.Windows.Forms.RadioButton rdoTags;
         private System.Windows.Forms.RadioButton rdoDescription;
         private System.Windows.Forms.RadioButton rdoAll;
+        private System.Windows.Forms.Button btnClearLog;
     }
 }

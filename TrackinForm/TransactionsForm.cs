@@ -78,21 +78,30 @@ namespace TrackinForm {
             }
         }
 
+        private void btnClearLog_Click(object sender, EventArgs e) {
+            txtLog.Clear();
+        }
+
         private void FillTransactionsList(DateTime from, DateTime to) {
             LogInfo(String.Format("Retrieving transactions from web server (from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}) ...", from, to));
 
-            _transactions = _repo.GetTransactions(from, to);
-            _transactions = _transactions.OrderBy(t => t.Date).ThenBy(t => t.ID);
+            try {
+                _transactions = _repo.GetTransactions(from, to);
+                _transactions = _transactions.OrderBy(t => t.Date).ThenBy(t => t.ID);
 
-            FillTransactionsList(_transactions);
+                FillTransactionsList(_transactions);
 
-            LogInfo(String.Format("{0} transactions were retrieved.", _transactions.Count()));
+                LogInfo(String.Format("{0} transactions were retrieved.", _transactions.Count()));
 
-            if (!String.IsNullOrWhiteSpace(txtSearch.Text)) {
-                FilterTransactions();
+                if (!String.IsNullOrWhiteSpace(txtSearch.Text)) {
+                    FilterTransactions();
+                }
+                else {
+                    CalculateTotalAmount(_transactions);
+                }
             }
-            else {
-                CalculateTotalAmount(_transactions);
+            catch (Exception ex) {
+                LogInfo("An unexpected error ocurred. Exception Message: " + ex.Message);
             }
         }
 
