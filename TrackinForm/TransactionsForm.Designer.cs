@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionsForm));
             this.lstvTransactions = new System.Windows.Forms.ListView();
+            this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Amount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -47,6 +48,7 @@
             // lstvTransactions
             // 
             this.lstvTransactions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ID,
             this.Description,
             this.Amount,
             this.Date,
@@ -59,6 +61,12 @@
             this.lstvTransactions.TabIndex = 0;
             this.lstvTransactions.UseCompatibleStateImageBehavior = false;
             this.lstvTransactions.View = System.Windows.Forms.View.Details;
+            this.lstvTransactions.DoubleClick += new System.EventHandler(this.lstvTransactions_DoubleClick);
+            // 
+            // ID
+            // 
+            this.ID.Text = "ID";
+            this.ID.Width = 0;
             // 
             // Description
             // 
@@ -256,5 +264,6 @@
         private System.Windows.Forms.RadioButton rdoDescription;
         private System.Windows.Forms.RadioButton rdoAll;
         private System.Windows.Forms.Button btnClearLog;
+        private System.Windows.Forms.ColumnHeader ID;
     }
 }

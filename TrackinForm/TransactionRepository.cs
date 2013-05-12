@@ -12,7 +12,9 @@ namespace TrackinForm {
 
     public interface ITransactionRepository {
         bool InsertTransaction(Transaction transaction, out string errorMessage);
+        bool EditTransaction(Transaction transaction, out string errorMessage);
         IEnumerable<Transaction> GetTransactions(DateTime from, DateTime to);
+        Transaction GetTransaction(Transaction transaction);
     }
 
     public class TransactionRepository : ITransactionRepository {
@@ -24,6 +26,41 @@ namespace TrackinForm {
             request.Method = "GET";
             request.Headers.Add("Authorization", String.Format("Basic {0}", ConfigurationManager.AppSettings["ApiAuthorizationKey"]));
             
+            bool success = false;
+            errorMessage = null;
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse) {
+                string xmlResponse;
+
+                using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
+                    xmlResponse = reader.ReadToEnd();
+                }
+
+                var doc = new XmlDocument();
+                doc.LoadXml(xmlResponse);
+
+                var xdoc = doc.ToXDocument();
+                var code = (string)xdoc.Root.Attribute("code");
+
+                var query = from c in xdoc.Descendants("error")
+                            select new {
+                                ErrorMessage = (string)c.Value
+                            };
+
+                success = code.ToLower() == "done";
+                errorMessage = query.FirstOrDefault() != null ? query.FirstOrDefault().ErrorMessage : "Undefined error.";
+            }
+
+            return success;
+        }
+
+        public bool EditTransaction(Transaction transaction, out string errorMessage) {
+            string url = String.Format("http://www.moneytrackin.com/api/rest/editTransaction?transactionID={4}&projectID=&description={0}&amount={1}&date={2:yyyy-MM-dd}&tags={3}",
+                transaction.Description, transaction.Amount, transaction.Date, string.Join(" ", transaction.Tags), transaction.ID);
+
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            request.Headers.Add("Authorization", String.Format("Basic {0}", ConfigurationManager.AppSettings["ApiAuthorizationKey"]));
+
             bool success = false;
             errorMessage = null;
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse) {
@@ -84,6 +121,13 @@ namespace TrackinForm {
                 return query.ToList();
             }
         }
+
+        public Transaction GetTransaction(Transaction transaction) {
+            var transactions = GetTransactions(from: transaction.Date, to: transaction.Date);
+            return transactions != null 
+                ? transactions.Where(t => t.ID == transaction.ID).FirstOrDefault()
+                : null;
+        }
     }
 
     public class Transaction {
@@ -92,6 +136,7 @@ namespace TrackinForm {
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public IList<string> Tags { get; set; }
+        public string TagsJoined { get { return String.Join(" ", Tags); } }
     }
 
     public static class DocumentExtensions {

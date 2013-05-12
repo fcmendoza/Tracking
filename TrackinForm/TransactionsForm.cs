@@ -82,6 +82,21 @@ namespace TrackinForm {
             txtLog.Clear();
         }
 
+        private void lstvTransactions_DoubleClick(object sender, EventArgs e) {
+            ListViewItem item = lstvTransactions.SelectedItems[0];
+
+            var transaction = new Transaction {
+                ID = long.Parse(item.SubItems[0].Text),
+                Description = item.SubItems[1].Text,
+                Amount = decimal.Parse(item.SubItems[2].Text),
+                Date = DateTime.Parse(item.SubItems[3].Text),
+                Tags = item.SubItems[4].Text.Split(' ')
+            };
+
+            var editForm = new TransactionForm(transaction);
+            editForm.ShowDialog();
+        }
+
         private void FillTransactionsList(DateTime from, DateTime to) {
             LogInfo(String.Format("Retrieving transactions from web server (from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}) ...", from, to));
 
@@ -136,7 +151,8 @@ namespace TrackinForm {
         private void FillTransactionsList(IEnumerable<Transaction> transactions) {
             lstvTransactions.Items.Clear();
             foreach (var tran in transactions) {
-                var item = lstvTransactions.Items.Add(tran.Description);
+                var item = lstvTransactions.Items.Add(tran.ID.ToString());
+                item.SubItems.Add(String.Format("{0}", tran.Description));
                 item.SubItems.Add(String.Format("{0:N}", tran.Amount));
                 item.SubItems.Add(String.Format("{0:yyyy-MM-dd}", tran.Date));
                 item.SubItems.Add(String.Join(" ", tran.Tags));
