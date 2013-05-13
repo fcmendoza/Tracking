@@ -32,6 +32,9 @@ namespace TrackinForm {
         }
 
         private void cboDateRange_SelectedIndexChanged(object sender, EventArgs e) {
+            LoadAndFillTransactionsList();
+        }
+        private void LoadAndFillTransactionsList() {
             var option = (DateRange)cboDateRange.SelectedIndex;
             var now = DateTime.Now;
             var lastMonth = DateTime.Now.AddMonths(-1);
@@ -103,6 +106,35 @@ namespace TrackinForm {
 
             var editForm = new TransactionForm(transaction);
             editForm.ShowDialog();
+        }
+
+        private void removeTransactionToolStripMenuItem_Click(object sender, EventArgs e) {
+            LogInfo("Deleting transaction...");
+            ListViewItem item = lstvTransactions.SelectedItems[0];
+
+            var transaction = new Transaction {
+                ID = long.Parse(item.SubItems[0].Text),
+                Description = item.SubItems[1].Text,
+                Amount = decimal.Parse(item.SubItems[2].Text),
+                Date = DateTime.Parse(item.SubItems[3].Text),
+                Tags = item.SubItems[4].Text.Split(' ')
+            };
+
+            string errorMessage = null;
+
+            try {
+                bool success = _repo.DeleteTransaction(transaction.ID, out errorMessage);
+
+                string parameters = String.Format("'{0}', {1:N}, {2:yyyy-MM-dd}, '{3}'", transaction.Description, transaction.Amount, transaction.Date, transaction.TagsJoined);
+                LogInfo(success
+                        ? String.Format("Transaction successfully deleted ({0}).", parameters)
+                        : String.Format("Transaction failed ({0}). Error message: {1}", parameters, errorMessage));
+
+                LoadAndFillTransactionsList();
+            }
+            catch (Exception ex) {
+                LogInfo("An unexpected error ocurred. Exception Message: " + ex.Message);
+            }
         }
 
         private void FillTransactionsList(DateTime from, DateTime to) {

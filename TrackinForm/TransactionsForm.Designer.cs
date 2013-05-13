@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionsForm));
             this.lstvTransactions = new System.Windows.Forms.ListView();
             this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,7 +43,11 @@
             this.rdoDescription = new System.Windows.Forms.RadioButton();
             this.rdoAll = new System.Windows.Forms.RadioButton();
             this.btnClearLog = new System.Windows.Forms.Button();
+            this.cmsPopupMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
+            this.cmsPopupMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -53,6 +58,7 @@
             this.Amount,
             this.Date,
             this.Tags});
+            this.lstvTransactions.ContextMenuStrip = this.cmsPopupMenu;
             this.lstvTransactions.FullRowSelect = true;
             this.lstvTransactions.GridLines = true;
             this.lstvTransactions.Location = new System.Drawing.Point(25, 22);
@@ -219,6 +225,27 @@
             this.btnClearLog.UseVisualStyleBackColor = true;
             this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
             // 
+            // cmsPopupMenu
+            // 
+            this.cmsPopupMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editTransactionToolStripMenuItem,
+            this.removeTransactionToolStripMenuItem});
+            this.cmsPopupMenu.Name = "cmsPopupMenu";
+            this.cmsPopupMenu.Size = new System.Drawing.Size(180, 70);
+            // 
+            // editTransactionToolStripMenuItem
+            // 
+            this.editTransactionToolStripMenuItem.Name = "editTransactionToolStripMenuItem";
+            this.editTransactionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.editTransactionToolStripMenuItem.Text = "Edit transaction";
+            // 
+            // removeTransactionToolStripMenuItem
+            // 
+            this.removeTransactionToolStripMenuItem.Name = "removeTransactionToolStripMenuItem";
+            this.removeTransactionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.removeTransactionToolStripMenuItem.Text = "Remove transaction";
+            this.removeTransactionToolStripMenuItem.Click += new System.EventHandler(this.removeTransactionToolStripMenuItem_Click);
+            // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,6 +268,7 @@
             this.Shown += new System.EventHandler(this.TransactionsForm_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.cmsPopupMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -266,5 +294,8 @@
         private System.Windows.Forms.RadioButton rdoAll;
         private System.Windows.Forms.Button btnClearLog;
         private System.Windows.Forms.ColumnHeader ID;
+        private System.Windows.Forms.ContextMenuStrip cmsPopupMenu;
+        private System.Windows.Forms.ToolStripMenuItem editTransactionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeTransactionToolStripMenuItem;
     }
 }
