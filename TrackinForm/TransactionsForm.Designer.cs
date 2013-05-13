@@ -31,6 +31,9 @@
             this.Amount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Tags = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmsPopupMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblLog = new System.Windows.Forms.Label();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.cboDateRange = new System.Windows.Forms.ComboBox();
@@ -43,11 +46,8 @@
             this.rdoDescription = new System.Windows.Forms.RadioButton();
             this.rdoAll = new System.Windows.Forms.RadioButton();
             this.btnClearLog = new System.Windows.Forms.Button();
-            this.cmsPopupMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1.SuspendLayout();
             this.cmsPopupMenu.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -94,6 +94,28 @@
             // 
             this.Tags.Text = "Tags";
             this.Tags.Width = 120;
+            // 
+            // cmsPopupMenu
+            // 
+            this.cmsPopupMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editTransactionToolStripMenuItem,
+            this.removeTransactionToolStripMenuItem});
+            this.cmsPopupMenu.Name = "cmsPopupMenu";
+            this.cmsPopupMenu.Size = new System.Drawing.Size(180, 70);
+            this.cmsPopupMenu.Opened += new System.EventHandler(this.cmsPopupMenu_Opened);
+            // 
+            // editTransactionToolStripMenuItem
+            // 
+            this.editTransactionToolStripMenuItem.Name = "editTransactionToolStripMenuItem";
+            this.editTransactionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.editTransactionToolStripMenuItem.Text = "Edit transaction";
+            // 
+            // removeTransactionToolStripMenuItem
+            // 
+            this.removeTransactionToolStripMenuItem.Name = "removeTransactionToolStripMenuItem";
+            this.removeTransactionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.removeTransactionToolStripMenuItem.Text = "Remove transaction";
+            this.removeTransactionToolStripMenuItem.Click += new System.EventHandler(this.removeTransactionToolStripMenuItem_Click);
             // 
             // lblLog
             // 
@@ -225,27 +247,6 @@
             this.btnClearLog.UseVisualStyleBackColor = true;
             this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
             // 
-            // cmsPopupMenu
-            // 
-            this.cmsPopupMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editTransactionToolStripMenuItem,
-            this.removeTransactionToolStripMenuItem});
-            this.cmsPopupMenu.Name = "cmsPopupMenu";
-            this.cmsPopupMenu.Size = new System.Drawing.Size(180, 70);
-            // 
-            // editTransactionToolStripMenuItem
-            // 
-            this.editTransactionToolStripMenuItem.Name = "editTransactionToolStripMenuItem";
-            this.editTransactionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.editTransactionToolStripMenuItem.Text = "Edit transaction";
-            // 
-            // removeTransactionToolStripMenuItem
-            // 
-            this.removeTransactionToolStripMenuItem.Name = "removeTransactionToolStripMenuItem";
-            this.removeTransactionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.removeTransactionToolStripMenuItem.Text = "Remove transaction";
-            this.removeTransactionToolStripMenuItem.Click += new System.EventHandler(this.removeTransactionToolStripMenuItem_Click);
-            // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,9 +267,9 @@
             this.Text = "Transactions";
             this.Load += new System.EventHandler(this.TransactionsForm_Load);
             this.Shown += new System.EventHandler(this.TransactionsForm_Shown);
+            this.cmsPopupMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.cmsPopupMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

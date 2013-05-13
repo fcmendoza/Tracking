@@ -136,6 +136,10 @@ namespace TrackinForm {
                 LogInfo("An unexpected error ocurred. Exception Message: " + ex.Message);
             }
         }
+        private void cmsPopupMenu_Opened(object sender, EventArgs e) {
+            editTransactionToolStripMenuItem.Enabled = lstvTransactions.SelectedItems.Count > 0;
+            removeTransactionToolStripMenuItem.Enabled = lstvTransactions.SelectedItems.Count > 0;
+        }
 
         private void FillTransactionsList(DateTime from, DateTime to) {
             LogInfo(String.Format("Retrieving transactions from web server (from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}) ...", from, to));
