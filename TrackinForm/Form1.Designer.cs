@@ -238,7 +238,7 @@
             this.btnViewTransactions.Name = "btnViewTransactions";
             this.btnViewTransactions.Size = new System.Drawing.Size(132, 23);
             this.btnViewTransactions.TabIndex = 20;
-            this.btnViewTransactions.Text = "View Transactions";
+            this.btnViewTransactions.Text = "View &Transactions";
             this.btnViewTransactions.UseVisualStyleBackColor = true;
             this.btnViewTransactions.Click += new System.EventHandler(this.btnViewTransactions_Click);
             // 

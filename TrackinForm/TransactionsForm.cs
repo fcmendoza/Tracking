@@ -25,6 +25,7 @@ namespace TrackinForm {
             "This Month (default)",
             "This Year",
             "Last Two Years",
+            "Last Three Years",
             "All Transactions"});
         }
 
@@ -40,6 +41,7 @@ namespace TrackinForm {
             var now = DateTime.Now;
             var lastMonth = DateTime.Now.AddMonths(-1);
             var nextMonth = DateTime.Now.AddMonths(1);
+            var lastYear = DateTime.Now.AddYears(-1);
 
             switch (option) {
                 case DateRange.LastMonth:
@@ -52,7 +54,10 @@ namespace TrackinForm {
                     FillTransactionsList(new DateTime(now.Year, 01, 01), new DateTime(now.Year, 12, 31));
                     break;
                 case DateRange.LastTwoYears:
-                    FillTransactionsList(new DateTime(now.AddYears(-1).Year, 01, 01), new DateTime(now.Year, 12, 31));
+                    FillTransactionsList(new DateTime(lastYear.Year, 01, 01), new DateTime(now.Year, 12, 31));
+                    break;
+                case DateRange.LastThreeYears:
+                    FillTransactionsList(new DateTime(lastYear.AddYears(-1).Year, 01, 01), new DateTime(now.Year, 12, 31));
                     break;
                 case DateRange.AllTransactions:
                     FillTransactionsList(new DateTime(2007, 01, 01), new DateTime(now.Year, 12, 31));
@@ -250,7 +255,8 @@ namespace TrackinForm {
             ThisMonth = 1,
             ThisYear = 2,
             LastTwoYears = 3,
-            AllTransactions = 4,
+            LastThreeYears = 4,
+            AllTransactions = 5
         }
 
         // TODO: The grid/listview itself should be the one of updating the Total Amount value (both in the label/textbox and in 
