@@ -25,6 +25,8 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionsForm));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.lstvTransactions = new System.Windows.Forms.ListView();
             this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -46,8 +48,10 @@
             this.rdoDescription = new System.Windows.Forms.RadioButton();
             this.rdoAll = new System.Windows.Forms.RadioButton();
             this.btnClearLog = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.cmsPopupMenu.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -101,7 +105,7 @@
             this.editTransactionToolStripMenuItem,
             this.removeTransactionToolStripMenuItem});
             this.cmsPopupMenu.Name = "cmsPopupMenu";
-            this.cmsPopupMenu.Size = new System.Drawing.Size(180, 70);
+            this.cmsPopupMenu.Size = new System.Drawing.Size(180, 48);
             this.cmsPopupMenu.Opened += new System.EventHandler(this.cmsPopupMenu_Opened);
             // 
             // editTransactionToolStripMenuItem
@@ -128,9 +132,8 @@
             // 
             // txtLog
             // 
-            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.txtLog.BackColor = System.Drawing.SystemColors.Control;
             this.txtLog.Location = new System.Drawing.Point(22, 308);
             this.txtLog.Multiline = true;
@@ -247,11 +250,27 @@
             this.btnClearLog.UseVisualStyleBackColor = true;
             this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
             // 
+            // chart1
+            // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(568, 235);
+            this.chart1.Name = "chart1";
+            this.chart1.Size = new System.Drawing.Size(544, 300);
+            this.chart1.TabIndex = 18;
+            this.chart1.Text = "chart1";
+            // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(727, 562);
+            this.ClientSize = new System.Drawing.Size(1124, 562);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.btnClearLog);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtTotalAmount);
@@ -270,6 +289,7 @@
             this.cmsPopupMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,5 +318,6 @@
         private System.Windows.Forms.ContextMenuStrip cmsPopupMenu;
         private System.Windows.Forms.ToolStripMenuItem editTransactionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeTransactionToolStripMenuItem;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

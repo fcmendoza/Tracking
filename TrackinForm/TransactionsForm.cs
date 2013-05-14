@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace TrackinForm {
     public partial class TransactionsForm : Form {
@@ -157,6 +158,7 @@ namespace TrackinForm {
                 }
                 else {
                     CalculateTotalAmount(_transactions);
+                    FillChartData(_transactions);
                 }
             }
             catch (Exception ex) {
@@ -190,6 +192,7 @@ namespace TrackinForm {
             LogInfo(String.Format("{0} results were found for term '{1}'{2}.", transactions.Count(), term, by));
 
             CalculateTotalAmount(transactions);
+            FillChartData(transactions);
         }
 
         private void FillTransactionsList(IEnumerable<Transaction> transactions) {
@@ -210,6 +213,29 @@ namespace TrackinForm {
 
             txtTotalAmount.Text = String.Format("{0:N}", total);
             LogInfo(String.Format("Transaction's total amount ({1} transactions): {0:N}", total, transactions.Count()));
+        }
+
+        private void FillChartData(IEnumerable<Transaction> transactions) {
+            // Data arrays.
+            string[] seriesArray = { "Expenses" };
+            double[] pointsArray = transactions.Where(t => t.Amount < 0).Select(t => (double)(t.Amount * -1)).ToArray();
+
+            // Set palette.
+            //this.chart1.Palette = ChartColorPalette.SeaGreen;
+
+            // Set title.
+            chart1.Titles.Clear();
+            chart1.Titles.Add(!String.IsNullOrWhiteSpace(txtSearch.Text) ? String.Format("Transactions ({0})", txtSearch.Text) : "Transactions");
+
+            // Add series.
+            chart1.Series.Clear();
+            Series series = this.chart1.Series.Add(seriesArray[0]);
+
+            // Add series.
+            for (int i = 0; i < pointsArray.Length; i++) {
+                // Add point.
+                series.Points.Add(pointsArray[i]);
+            }
         }
 
         private void LogInfo(string message) {
