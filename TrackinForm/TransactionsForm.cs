@@ -230,6 +230,8 @@ namespace TrackinForm {
             // Add series.
             chart1.Series.Clear();
             Series series = this.chart1.Series.Add(seriesArray[0]);
+            series.ChartType = SeriesChartType.SplineArea;
+            series.Color = Color.SteelBlue;
 
             // Add series.
             for (int i = 0; i < pointsArray.Length; i++) {

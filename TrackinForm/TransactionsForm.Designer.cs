@@ -263,6 +263,7 @@
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(544, 300);
             this.chart1.TabIndex = 18;
+            this.chart1.TabStop = false;
             this.chart1.Text = "chart1";
             // 
             // TransactionsForm
