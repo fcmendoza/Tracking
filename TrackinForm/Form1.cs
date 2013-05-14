@@ -59,6 +59,7 @@ namespace TrackinForm {
 
         private void TransactionForm_Load(object sender, EventArgs e) {
             btnAdd.Enabled = false;
+            btnUpdateAndClose.Visible = _isEditMode;
             if (_transaction != null) {
                 var transaction = _repo.GetTransaction(_transaction);
 
@@ -73,15 +74,19 @@ namespace TrackinForm {
         }
         private void txtDescription_TextChanged(object sender, EventArgs e) {
             btnAdd.Enabled = IsEnabledAddButton();
+            btnUpdateAndClose.Enabled = IsEnabledAddButton();
         }
         private void nudAmount_ValueChanged(object sender, EventArgs e) {
             btnAdd.Enabled = IsEnabledAddButton();
+            btnUpdateAndClose.Enabled = IsEnabledAddButton();
         }
         private void cboTags_SelectedIndexChanged(object sender, EventArgs e) {
             btnAdd.Enabled = IsEnabledAddButton();
+            btnUpdateAndClose.Enabled = IsEnabledAddButton();
         }
         private void cboTags_TextChanged(object sender, EventArgs e) {
             btnAdd.Enabled = IsEnabledAddButton();
+            btnUpdateAndClose.Enabled = IsEnabledAddButton();
         }
         private bool IsEnabledAddButton() {
             return !String.IsNullOrWhiteSpace(txtDescription.Text) && nudAmount.Value != 0 && !String.IsNullOrWhiteSpace(cboTags.Text);
@@ -116,6 +121,10 @@ namespace TrackinForm {
         }
 
         private void btnCancel_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+        private void btnUpdateAndClose_Click(object sender, EventArgs e) {
+            btnAdd_Click(sender, e);
             this.Close();
         }
 

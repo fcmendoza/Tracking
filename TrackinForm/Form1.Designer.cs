@@ -40,6 +40,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cboTags = new System.Windows.Forms.ComboBox();
             this.btnViewTransactions = new System.Windows.Forms.Button();
+            this.btnUpdateAndClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -242,6 +243,18 @@
             this.btnViewTransactions.UseVisualStyleBackColor = true;
             this.btnViewTransactions.Click += new System.EventHandler(this.btnViewTransactions_Click);
             // 
+            // btnUpdateAndClose
+            // 
+            this.btnUpdateAndClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdateAndClose.Location = new System.Drawing.Point(260, 405);
+            this.btnUpdateAndClose.Name = "btnUpdateAndClose";
+            this.btnUpdateAndClose.Size = new System.Drawing.Size(114, 23);
+            this.btnUpdateAndClose.TabIndex = 10;
+            this.btnUpdateAndClose.Text = "Update and Close";
+            this.btnUpdateAndClose.UseVisualStyleBackColor = true;
+            this.btnUpdateAndClose.Visible = false;
+            this.btnUpdateAndClose.Click += new System.EventHandler(this.btnUpdateAndClose_Click);
+            // 
             // TransactionForm
             // 
             this.AcceptButton = this.btnAdd;
@@ -249,6 +262,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(624, 440);
+            this.Controls.Add(this.btnUpdateAndClose);
             this.Controls.Add(this.btnViewTransactions);
             this.Controls.Add(this.cboTags);
             this.Controls.Add(this.label8);
@@ -295,6 +309,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cboTags;
         private System.Windows.Forms.Button btnViewTransactions;
+        private System.Windows.Forms.Button btnUpdateAndClose;
     }
 }
 
