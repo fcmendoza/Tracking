@@ -220,19 +220,40 @@ namespace TrackinForm {
             LogInfo(String.Format("Transaction's total amount ({1} transactions): {0:N}", total, transactions.Count()));
         }
 
+        private void rdoByDay_CheckedChanged(object sender, EventArgs e) {
+            if ((sender as RadioButton).Checked) {
+                FilterTransactions();
+            }
+        }
+        private void rdoByMonth_CheckedChanged(object sender, EventArgs e) {
+            if ((sender as RadioButton).Checked) {
+                FilterTransactions();
+            }
+        }
+        private void rdoByYear_CheckedChanged(object sender, EventArgs e) {
+            if ((sender as RadioButton).Checked) {
+                FilterTransactions();
+            }
+        }
+
         private void FillChartData(IEnumerable<Transaction> transactions) {
-            // Data arrays.
+            transactions = transactions.Where(t => t.Amount < 0);
+
+            string format = rdoByYear.Checked
+                ? "{0:yyyy}"
+                : (rdoByMonth.Checked ? "{0:yyyy-MM}" : "{0:yyyy-MM-dd}");
+
+            var results = transactions
+                .GroupBy(t => String.Format(format, t.Date), t => t.Amount, (key, g) => new { Month = key, TotalAmount = g.Sum() });
+
             string[] seriesArray = { "Expenses" };
-            double[] pointsArray = transactions.Where(t => t.Amount < 0).Select(t => (double)(t.Amount * -1)).ToArray();
+            double[] pointsArray = results
+                .Select(t => (double)(t.TotalAmount * -1))
+                .ToArray();
 
-            // Set palette.
-            //this.chart1.Palette = ChartColorPalette.SeaGreen;
-
-            // Set title.
             chart1.Titles.Clear();
             chart1.Titles.Add(!String.IsNullOrWhiteSpace(txtSearch.Text) ? String.Format("Transactions ({0})", txtSearch.Text) : "Transactions");
 
-            // Add series.
             chart1.Series.Clear();
             Series series = this.chart1.Series.Add(seriesArray[0]);
             series.ChartType = SeriesChartType.SplineArea;
@@ -257,6 +278,12 @@ namespace TrackinForm {
             LastTwoYears = 3,
             LastThreeYears = 4,
             AllTransactions = 5
+        }
+
+        private enum TrendBy { 
+            Day = 0,
+            Month = 1,
+            Year = 2,
         }
 
         // TODO: The grid/listview itself should be the one of updating the Total Amount value (both in the label/textbox and in 

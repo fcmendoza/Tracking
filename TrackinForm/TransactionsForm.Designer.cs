@@ -49,9 +49,14 @@
             this.rdoAll = new System.Windows.Forms.RadioButton();
             this.btnClearLog = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.rdoByYear = new System.Windows.Forms.RadioButton();
+            this.rdoByMonth = new System.Windows.Forms.RadioButton();
+            this.rdoByDay = new System.Windows.Forms.RadioButton();
             this.cmsPopupMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstvTransactions
@@ -266,11 +271,61 @@
             this.chart1.TabStop = false;
             this.chart1.Text = "chart1";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.rdoByYear);
+            this.panel2.Controls.Add(this.rdoByMonth);
+            this.panel2.Controls.Add(this.rdoByDay);
+            this.panel2.Location = new System.Drawing.Point(776, 193);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(175, 36);
+            this.panel2.TabIndex = 19;
+            // 
+            // rdoByYear
+            // 
+            this.rdoByYear.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoByYear.AutoSize = true;
+            this.rdoByYear.Location = new System.Drawing.Point(115, 6);
+            this.rdoByYear.Name = "rdoByYear";
+            this.rdoByYear.Size = new System.Drawing.Size(54, 23);
+            this.rdoByYear.TabIndex = 2;
+            this.rdoByYear.TabStop = true;
+            this.rdoByYear.Text = "By Year";
+            this.rdoByYear.UseVisualStyleBackColor = true;
+            this.rdoByYear.CheckedChanged += new System.EventHandler(this.rdoByYear_CheckedChanged);
+            // 
+            // rdoByMonth
+            // 
+            this.rdoByMonth.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoByMonth.AutoSize = true;
+            this.rdoByMonth.Location = new System.Drawing.Point(54, 6);
+            this.rdoByMonth.Name = "rdoByMonth";
+            this.rdoByMonth.Size = new System.Drawing.Size(62, 23);
+            this.rdoByMonth.TabIndex = 1;
+            this.rdoByMonth.TabStop = true;
+            this.rdoByMonth.Text = "By Month";
+            this.rdoByMonth.UseVisualStyleBackColor = true;
+            this.rdoByMonth.CheckedChanged += new System.EventHandler(this.rdoByMonth_CheckedChanged);
+            // 
+            // rdoByDay
+            // 
+            this.rdoByDay.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rdoByDay.AutoSize = true;
+            this.rdoByDay.Location = new System.Drawing.Point(4, 6);
+            this.rdoByDay.Name = "rdoByDay";
+            this.rdoByDay.Size = new System.Drawing.Size(51, 23);
+            this.rdoByDay.TabIndex = 0;
+            this.rdoByDay.TabStop = true;
+            this.rdoByDay.Text = "By Day";
+            this.rdoByDay.UseVisualStyleBackColor = true;
+            this.rdoByDay.CheckedChanged += new System.EventHandler(this.rdoByDay_CheckedChanged);
+            // 
             // TransactionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1124, 562);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.btnClearLog);
             this.Controls.Add(this.panel1);
@@ -291,6 +346,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,5 +377,9 @@
         private System.Windows.Forms.ToolStripMenuItem editTransactionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeTransactionToolStripMenuItem;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton rdoByYear;
+        private System.Windows.Forms.RadioButton rdoByMonth;
+        private System.Windows.Forms.RadioButton rdoByDay;
     }
 }
