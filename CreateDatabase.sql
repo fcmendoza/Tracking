@@ -1,4 +1,18 @@
-﻿USE [Trackin]
+﻿USE master
+GO
+
+CREATE DATABASE Trackin
+ON ( 
+	NAME = Trackin_dat,
+	FILENAME = 'C:\Projects\Trackin.mdf'
+)
+LOG ON (
+	NAME = Trackin_log,
+	FILENAME = 'C:\Projects\Trackin.ldf'
+)
+GO
+
+USE [Trackin]
 GO
 /****** Object:  Table [dbo].[Transactions]    Script Date: 07/29/2012 20:35:13 ******/
 SET ANSI_NULLS ON
