@@ -221,10 +221,26 @@
             this.cboTags.Items.AddRange(new object[] {
             "food",
             "transportation",
+            "snacks",
+            "bus",
             "personal-care",
             "services",
+            "leisure",
             "healthcare",
-            "leisure"});
+            "salary",
+            "clothing",
+            "house-supplies",
+            "misc",
+            "taxi",
+            "family",
+            "info",
+            "computers",
+            "groceries",
+            "academia",
+            "business",
+            "office-supplies",
+            "wasted-money",
+            "education"});
             this.cboTags.Location = new System.Drawing.Point(88, 129);
             this.cboTags.Name = "cboTags";
             this.cboTags.Size = new System.Drawing.Size(200, 21);
