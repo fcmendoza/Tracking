@@ -63,7 +63,9 @@
     <Compile Include="TransactionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Subsonic\Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Context.cs</LastGenOutput>

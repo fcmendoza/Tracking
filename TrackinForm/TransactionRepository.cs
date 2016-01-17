@@ -16,6 +16,7 @@ namespace TrackinForm {
         IEnumerable<Transaction> GetTransactions(DateTime from, DateTime to);
         Transaction GetTransaction(Transaction transaction);
         bool DeleteTransaction(long transactionID, out string errorMessage);
+        IEnumerable<Project> GetProjects();
     }
 
     public class TransactionRepository : ITransactionRepository {
@@ -163,6 +164,37 @@ namespace TrackinForm {
 
             return success;
         }
+
+        public IEnumerable<Project> GetProjects() {
+            string url = String.Format("http://www.moneytrackin.com/api/rest/listProjects", null);
+
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "GET";
+            request.Headers.Add("Authorization", String.Format("Basic {0}", ConfigurationManager.AppSettings["ApiAuthorizationKey"]));
+
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse) {
+                string xmlResponse;
+
+                using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
+                    xmlResponse = reader.ReadToEnd();
+                    xmlResponse = xmlResponse.Replace("result", "transactions");
+                }
+
+                var doc = new XmlDocument();
+                doc.LoadXml(xmlResponse);
+
+                var xdoc = doc.ToXDocument();
+
+                var query = from c in xdoc.Descendants("transaction")
+                            select new Project {
+                                ID = (long)c.Attribute("id"),
+                                Name = (string)c.Element("name"),
+                                Balance = (decimal)c.Element("balance")
+                            };
+
+                return query.ToList();
+            }
+        }
     }
 
     public class Transaction {
@@ -172,6 +204,12 @@ namespace TrackinForm {
         public decimal Amount { get; set; }
         public IList<string> Tags { get; set; }
         public string TagsJoined { get { return String.Join(" ", Tags); } }
+    }
+
+    public class Project {
+        public long ID { get; set; }
+        public string Name { get; set; }
+        public decimal Balance { get; set; }
     }
 
     public static class DocumentExtensions {

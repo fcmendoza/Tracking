@@ -11,19 +11,19 @@ using System.Configuration;
 
 namespace Updater {
     public interface ITransactionRepository {
-        IEnumerable<Transacction> GetTransactions(DateTime from, DateTime to);
-        void SaveTransactions(IEnumerable<Transacction> transactions);
+        IEnumerable<Transacction> GetTransactions(DateTime from, DateTime to, int? accountID = null);
+        void SaveTransactions(IEnumerable<Transacction> transactions, bool? isUsaAccount = null);
     }
 
     public class TransactionRepository : ITransactionRepository {
 
-        public IEnumerable<Transacction> GetTransactions(DateTime from, DateTime to) {
+        public IEnumerable<Transacction> GetTransactions(DateTime from, DateTime to, int? accountID = null) {
             // get settings from config file
             // make request to mtrackin's api
             // convert request to IEnumerable<Transacction> and return it.
 
-            string url = String.Format("http://www.moneytrackin.com/api/rest/listTransactions?project=&startDate={0:yyyy-MM-dd}&endDate={1:yyyy-MM-dd}", 
-                from, to);
+            string url = String.Format("http://www.moneytrackin.com/api/rest/listTransactions?project={2}&startDate={0:yyyy-MM-dd}&endDate={1:yyyy-MM-dd}", 
+                from, to, accountID);
 
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "GET";
@@ -55,9 +55,14 @@ namespace Updater {
             }
         }
 
-        public void SaveTransactions(IEnumerable<Transacction> transactions) {
+        public void SaveTransactions(IEnumerable<Transacction> transactions, bool? isUsaAccount = null) {
             foreach (var transaction in transactions) {
-                _db.SaveTransaction(transaction.ID, transaction.Description, transaction.Amount, transaction.Date, String.Join(",", transaction.Tags))
+                _db.SaveTransaction(transaction.ID
+                    , transaction.Description
+                    , transaction.Amount
+                    , transaction.Date
+                    , String.Join(",", transaction.Tags)
+                    , isUsaAccount == true ? "USA" : "Main")
                     .Execute();
             }
         }
