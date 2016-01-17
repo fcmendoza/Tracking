@@ -71,8 +71,9 @@ namespace DataAccess {
 					Description = x.Description,
 					Amount = x.Amount,
 					Date = x.Date,
-					Tags = x.Tags.Split(',').Any() ? x.Tags.Split(',') : new string[] { x.Tags }
-				}).ToList();
+					Tags = x.Tags.Split(',').Any() ? x.Tags.Split(',') : new string[] { x.Tags },
+                    AccountName = x.AccountName
+				}).OrderBy(t => t.Date).ToList();
 		}
 
 		private TrackinDB _db = new TrackinDB();
@@ -113,6 +114,7 @@ namespace DataAccess {
 		public DateTime Date { get; set; }
 		public decimal Amount { get; set; }
 		public IList<string> Tags { get; set; }
+        public string AccountName { get; set; }
 	}
 
 	public class TransactionDto {
@@ -121,6 +123,7 @@ namespace DataAccess {
 		public DateTime Date { get; set; }
 		public decimal Amount { get; set; }
 		public string Tags { get; set; }
+        public string AccountName { get; set; }
 	}
 
 	public static class DocumentExtensions {

@@ -20,13 +20,13 @@ namespace CsvExporter {
 			var transactions = _repo.GetTransactions();
 
 			StringBuilder sb = new StringBuilder();
-			sb.Append("\"ID\",\"Description\",\"Amount\",\"Date\",\"Tags\"");
+            sb.Append("\"ID\",\"Description\",\"Amount\",\"Date\",\"Tags\",\"AccountName\"");
 			sb.AppendLine();
 			foreach (var transaction in transactions) {
-				sb.Append(String.Format("\"{0}\",\"{1}\",\"{2}\",\"{3:yyyy-MM-dd}\",\"{4}\"", transaction.ID, 
+                sb.Append(String.Format("\"{0}\",\"{1}\",\"{2}\",\"{3:yyyy-MM-dd}\",\"{4}\",\"{5}\"", transaction.ID, 
 					transaction.Description, 
 					transaction.Amount, 
-					transaction.Date, String.Join(",", transaction.Tags)));
+					transaction.Date, String.Join(",", transaction.Tags), transaction.AccountName));
 				sb.AppendLine();
 			}
 
