@@ -14,11 +14,7 @@ namespace CsvExporter {
                 //new Exporter(new TransactionRepository()).Run();
                 //Console.WriteLine("Done");
 
-                var builder = new ContainerBuilder();
-                builder.RegisterType<Exporter>().As<IExporter>();
-                builder.RegisterType<TransactionRepository>().As<ITransactionRepository>();
-
-                IContainer container = builder.Build();
+                IContainer container = ContainerConfig.Configure();
 
                 using (var scope = container.BeginLifetimeScope()) {
                     var exporter = scope.Resolve<IExporter>();
@@ -31,6 +27,17 @@ namespace CsvExporter {
                 Console.WriteLine("Unexpected error. {0}", ex.ToString());
                 Environment.Exit(1); // 1 means error.
             }
+        }
+    }
+
+    static class ContainerConfig {
+        public static IContainer Configure() {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<Exporter>().As<IExporter>();
+            builder.RegisterType<TransactionRepository>().As<ITransactionRepository>();
+            
+            return builder.Build();
         }
     }
 }
