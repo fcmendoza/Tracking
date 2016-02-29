@@ -8,7 +8,7 @@ namespace Updater {
         static void Main(string[] args) {
             try {
                 new DasUpdater(new TransactionRepository()).Run();
-                Console.WriteLine("Done");
+                Console.WriteLine("\nDone!");
             }
             catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
