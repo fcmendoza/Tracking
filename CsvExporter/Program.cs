@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Configuration;
-using DataAccess;
 using Autofac;
+using Tracking.DataAccess.SqlServer;
+using Tracking.DataAccess.Base.Repositories;
 
 namespace CsvExporter {
     class Program {
@@ -32,7 +33,9 @@ namespace CsvExporter {
             var builder = new ContainerBuilder();
 
             builder.RegisterType<Exporter>().As<IExporter>();
-            builder.RegisterType<TransactionRepository>().As<ITransactionRepository>();
+            builder.RegisterType<TransactionRepository>()
+                .WithParameter(parameterName: "connectionString", parameterValue: ConfigurationManager.ConnectionStrings["dasConnection"].ToString())
+                .As<ITransactionRepository>();
             
             return builder.Build();
         }

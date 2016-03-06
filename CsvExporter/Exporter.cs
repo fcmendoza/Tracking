@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Configuration;
-using DataAccess;
+using Tracking.DataAccess.Base.Repositories;
 
 namespace CsvExporter {
 	class Exporter : IExporter {
