@@ -17,7 +17,6 @@ namespace DataAccess {
 	}
 
 	public class TransactionRepository : ITransactionRepository {
-
 		public IEnumerable<Transacction> GetTransactions(DateTime from, DateTime to) {
 			// get settings from config file
 			// make request to mtrackin's api
@@ -72,14 +71,25 @@ namespace DataAccess {
 					Amount = x.Amount,
 					Date = x.Date,
 					Tags = x.Tags.Split(',').Any() ? x.Tags.Split(',') : new string[] { x.Tags },
-                    AccountName = x.AccountName
+					AccountName = x.AccountName
 				}).OrderBy(t => t.Date).ToList();
 		}
 
 		private TrackinDB _db = new TrackinDB();
 	}
 
-	public class DummyTransactionRepository  {
+	public class DummyTransactionRepository : ITransactionRepository {
+		public IEnumerable<Transacction> GetTransactions(DateTime from, DateTime to) {
+			return GetTransactions();
+		}
+
+		public void SaveTransactions(IEnumerable<Transacction> transactions) {
+			foreach (var transaction in transactions) {
+				_db.SaveTransaction(transaction.ID, transaction.Description, transaction.Amount, transaction.Date, String.Join(",", transaction.Tags))
+					.Execute();
+			}
+		}
+
 		public IEnumerable<Transacction> GetTransactions() {
 			var transactions = new List<Transacction>();
 			transactions.Add(new Transacction {
@@ -87,22 +97,18 @@ namespace DataAccess {
 				Description = "Lorem ipsum",
 				Date = DateTime.Now,
 				Amount = 100,
-				Tags = new List<string> {"food"}
+				Tags = new List<string> { "food" },
+				AccountName = "USA"
 			});
 			transactions.Add(new Transacction {
 				ID = 50722541,
 				Description = "Lorem ipsum 2",
 				Date = DateTime.Now,
 				Amount = 1002,
-				Tags = new List<string> { "transportation" }
+				Tags = new List<string> { "transportation" },
+				AccountName = "USA"
 			});
 			return transactions;
-		}
-		public void SaveTransactions(IEnumerable<Transacction> transactions) {
-			foreach (var transaction in transactions) {
-				_db.SaveTransaction(transaction.ID, transaction.Description, transaction.Amount, transaction.Date, String.Join(",", transaction.Tags))
-					.Execute();
-			}
 		}
 
 		private TrackinDB _db = new TrackinDB();
@@ -114,7 +120,7 @@ namespace DataAccess {
 		public DateTime Date { get; set; }
 		public decimal Amount { get; set; }
 		public IList<string> Tags { get; set; }
-        public string AccountName { get; set; }
+		public string AccountName { get; set; }
 	}
 
 	public class TransactionDto {
@@ -123,7 +129,7 @@ namespace DataAccess {
 		public DateTime Date { get; set; }
 		public decimal Amount { get; set; }
 		public string Tags { get; set; }
-        public string AccountName { get; set; }
+		public string AccountName { get; set; }
 	}
 
 	public static class DocumentExtensions {

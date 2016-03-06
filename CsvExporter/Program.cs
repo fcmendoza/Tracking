@@ -11,9 +11,6 @@ namespace CsvExporter {
     class Program {
         static void Main(string[] args) {
             try {
-                //new Exporter(new TransactionRepository()).Run();
-                //Console.WriteLine("Done");
-
                 IContainer container = ContainerConfig.Configure();
 
                 using (var scope = container.BeginLifetimeScope()) {
@@ -30,7 +27,7 @@ namespace CsvExporter {
         }
     }
 
-    static class ContainerConfig {
+    class ContainerConfig {
         public static IContainer Configure() {
             var builder = new ContainerBuilder();
 
