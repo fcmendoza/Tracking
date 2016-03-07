@@ -40,6 +40,10 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -48,6 +52,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tracking.DataAccess.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Tracking.DataAccess.Base.1.0.0\lib\net45\Tracking.DataAccess.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Tracking.DataAccess.SqlServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Tracking.DataAccess.SqlServer.1.0.0.0\lib\net45\Tracking.DataAccess.SqlServer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exporter.cs" />
@@ -60,16 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tracking.DataAccess.Base\Tracking.DataAccess.Base.csproj">
-      <Project>{bf42711f-de2c-4301-aaf5-ba4d1b19fd12}</Project>
-      <Name>Tracking.DataAccess.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracking.DataAccess.SqlServer\Tracking.DataAccess.SqlServer.csproj">
-      <Project>{a9fa725c-26a1-4057-ac2c-d5d8413b16d7}</Project>
-      <Name>Tracking.DataAccess.SqlServer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
