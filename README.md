@@ -1,4 +1,10 @@
-This is an .NET console application written in C# that updates a SQL Server database with data from MoneyTrackin.
+Desktop application to manage personal financial transactions from moneytrackin.com's public API. It also includes 2 console applications that update a SQL Server database (Updater) and generate a CVS file with all transactions (CvsExporter).
+
+## Desktop Client
+
+![image](https://cloud.githubusercontent.com/assets/904058/24278595/e806a6de-1001-11e7-93d9-805f27e11846.png)
+
+![image](https://cloud.githubusercontent.com/assets/904058/24278682/76bae6f6-1002-11e7-994e-e8a8a3500313.png)
 
 ## Updater
 
