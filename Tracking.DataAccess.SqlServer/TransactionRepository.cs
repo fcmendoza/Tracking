@@ -43,7 +43,25 @@ namespace Tracking.DataAccess.SqlServer {
         }
 
         public void SaveTransactions(IEnumerable<Transaction> transactions) {
-            throw new NotImplementedException();
+            using (var cn = new SqlConnection(_connectionString)) {
+                cn.Open();
+
+                foreach (var tran in transactions) {
+                    cn.Execute("dbo.SaveTransaction",
+                        new { 
+                            TransactionID = tran.ID,
+                            Description   = tran.Description,
+                            Amount        = tran.Amount,
+                            Date          = tran.Date,
+                            Tags          = String.Join(",", tran.Tags),
+                            AccountName   = tran.AccountName,
+                        },
+                        commandType: CommandType.StoredProcedure
+                    );
+                }
+
+                cn.Close();
+            }
         }
 
         private string _connectionString;

@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Configuration;
+using Tracking.DataAccess.Base.Repositories;
 
 namespace Updater {
     class DasUpdater {
-        public DasUpdater(ITransactionRepository repo) {
+        public DasUpdater(ITransactionRepository repo, IApiClient client) {
             _repo = repo;
+            _client = client;
         }
 
         internal void Run() {
@@ -26,21 +26,29 @@ namespace Updater {
 
         internal void Run(DateTime from, DateTime to) {
             Console.WriteLine("Main Account - Getting transactions from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}...", from, to);
-            var transactions = _repo.GetTransactions(from, to);
+            var transactions = _client.GetTransactions(from, to);
             Console.WriteLine("{0} transactions retrieved.", transactions.Count());
             Console.WriteLine("Main Account - Saving Transactions...");
-            _repo.SaveTransactions(transactions);
+
+            var txns = transactions.Select(t => new Tracking.DataAccess.Base.Models.Transaction { 
+                ID = t.ID, Description = t.Description, Amount = t.Amount, Date = t.Date, Tags = t.Tags, AccountName = "Main"
+            });
+            _repo.SaveTransactions(txns);
             Console.WriteLine("Main Account - Transactions saved.");
 
-
             Console.WriteLine("USA Account - Getting transactions from {0:yyyy-MM-dd} to {1:yyyy-MM-dd}...", from, to);
-            transactions = _repo.GetTransactions(from, to, accountID: 129569);
+            transactions = _client.GetTransactions(from, to, accountID: 129569);
             Console.WriteLine("{0} transactions retrieved.", transactions.Count());
             Console.WriteLine("USA Account - Saving Transactions...");
-            _repo.SaveTransactions(transactions, isUsaAccount: true);
+
+            txns = transactions.Select(t => new Tracking.DataAccess.Base.Models.Transaction { 
+                ID = t.ID, Description = t.Description, Amount = t.Amount, Date = t.Date, Tags = t.Tags, AccountName = "USA"
+            });
+            _repo.SaveTransactions(txns);
             Console.WriteLine("USA Account - Transactions saved.");
         }
 
         ITransactionRepository _repo;
+        IApiClient _client;
     }
 }
