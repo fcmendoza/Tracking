@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -22,6 +20,7 @@ namespace TrackinForm {
             cboDateRange.Items.Clear();
             cboDateRange.Items.AddRange(new object[] {
             "Last Month",
+            "Last Two Months",
             "This Month (default)",
             "This Year",
             "Last Two Years",
@@ -45,10 +44,13 @@ namespace TrackinForm {
 
             switch (option) {
                 case DateRange.LastMonth:
-                    FillTransactionsList(new DateTime(lastMonth.Year, lastMonth.Month, 01), new DateTime(now.Year, now.Month, 01));
+                    FillTransactionsList(new DateTime(lastMonth.Year, lastMonth.Month, 01), new DateTime(lastMonth.Year, lastMonth.Month, DateTime.DaysInMonth(lastMonth.Year, lastMonth.Month)));
+                    break;
+                case DateRange.LastTwoMonths:
+                    FillTransactionsList(new DateTime(lastMonth.Year, lastMonth.Month, 01), new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month)));
                     break;
                 case DateRange.ThisMonth:
-                    FillTransactionsList(new DateTime(now.Year, now.Month, 01), new DateTime(nextMonth.Year, nextMonth.Month, 01));
+                    FillTransactionsList(new DateTime(now.Year, now.Month, 01), new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month)));
                     break;
                 case DateRange.ThisYear:
                     FillTransactionsList(new DateTime(now.Year, 01, 01), new DateTime(now.Year, 12, 31));
@@ -64,6 +66,7 @@ namespace TrackinForm {
                     break;
                 default:
                     break;
+
             }
         }
 
@@ -272,12 +275,13 @@ namespace TrackinForm {
         }
 
         private enum DateRange {
-            LastMonth = 0,
-            ThisMonth = 1,
-            ThisYear = 2,
-            LastTwoYears = 3,
-            LastThreeYears = 4,
-            AllTransactions = 5
+            LastMonth,
+            LastTwoMonths,
+            ThisMonth,
+            ThisYear,
+            LastTwoYears,
+            LastThreeYears,
+            AllTransactions
         }
 
         private enum TrendBy { 

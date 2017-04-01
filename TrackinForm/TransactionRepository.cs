@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Configuration;
 using System.Net;
 using System.IO;
@@ -21,8 +20,8 @@ namespace TrackinForm {
 
     public class TransactionRepository : ITransactionRepository {
         public bool InsertTransaction(Transaction transaction, out string errorMessage) {
-            string url = String.Format("http://www.moneytrackin.com/api/rest/insertTransaction?project=&description={0}&amount={1}&date={2:yyyy-MM-dd}&tags={3}",
-                transaction.Description, transaction.Amount, transaction.Date, string.Join(" ", transaction.Tags));
+            string url = String.Format("http://www.moneytrackin.com/api/rest/insertTransaction?project={4}&description={0}&amount={1}&date={2:yyyy-MM-dd}&tags={3}",
+                transaction.Description, transaction.Amount, transaction.Date, string.Join(" ", transaction.Tags), _projectId);
 
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "GET";
@@ -56,8 +55,8 @@ namespace TrackinForm {
         }
 
         public bool EditTransaction(Transaction transaction, out string errorMessage) {
-            string url = String.Format("http://www.moneytrackin.com/api/rest/editTransaction?transactionID={4}&projectID=&description={0}&amount={1}&date={2:yyyy-MM-dd}&tags={3}",
-                transaction.Description, transaction.Amount, transaction.Date, string.Join(" ", transaction.Tags), transaction.ID);
+            string url = String.Format("http://www.moneytrackin.com/api/rest/editTransaction?transactionID={4}&projectID={5}&description={0}&amount={1}&date={2:yyyy-MM-dd}&tags={3}",
+                transaction.Description, transaction.Amount, transaction.Date, string.Join(" ", transaction.Tags), transaction.ID, _projectId);
 
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "GET";
@@ -91,8 +90,8 @@ namespace TrackinForm {
         }
 
         public IEnumerable<Transaction> GetTransactions(DateTime from, DateTime to) {
-            string url = String.Format("http://www.moneytrackin.com/api/rest/listTransactions?project=&startDate={0:yyyy-MM-dd}&endDate={1:yyyy-MM-dd}",
-                from, to);
+            string url = "http://www.moneytrackin.com/api/rest/" 
+                + $"listTransactions?project={_projectId}&startDate={from:yyyy-MM-dd}&endDate={to:yyyy-MM-dd}";
 
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "GET";
@@ -194,6 +193,13 @@ namespace TrackinForm {
 
                 return query.ToList();
             }
+        }
+
+        string _projectId;
+
+        public TransactionRepository() {
+            int projectId = int.TryParse(ConfigurationManager.AppSettings["DefaultProjectId"], out projectId) ? projectId : projectId;
+            _projectId = projectId > 0 ? projectId.ToString() : string.Empty;
         }
     }
 
